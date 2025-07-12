@@ -13,7 +13,7 @@ export default function BlogInfo({
     <div className={cn(className)}>
       <h1 className="text-lg font-medium">{String(metadata.title)}</h1>
       <div className="flex justify-between items-center text-sm">
-        <div className="flex gap-2 items-center text-secondary">
+        <div className="flex gap-2 items-center">
           <span>{metadata.date}</span>·<span>{readingTime}</span>
         </div>
       </div>

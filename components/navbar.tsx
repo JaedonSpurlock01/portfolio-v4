@@ -17,7 +17,7 @@ export const Navbar = () => {
       icon: <FaLinkedin />,
     },
     {
-      href: "https://www.linkedin.com/in/jaedon-spurlock/",
+      href: "https://github.com/JaedonSpurlock01",
       label: "Github",
       icon: <FaGithub />,
     },

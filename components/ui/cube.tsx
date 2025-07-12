@@ -3,8 +3,7 @@
 import { useTheme } from "next-themes";
 import React, { useRef, useEffect } from "react";
 import * as THREE from "three";
-// Import OrbitControls - this will work in your project
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 export const Cube = () => {
   const mountRef = useRef(null);
@@ -18,49 +17,54 @@ export const Cube = () => {
   const { theme } = useTheme();
 
   useEffect(() => {
-    if (!mountRef.current) return;
+    const currentMount = mountRef.current;
 
-    // Fixed dimensions for the cube container
+    if (!currentMount) return;
+
+    // @ts-expect-error No need to check
+    if (currentMount.children.length > 0) {
+      // @ts-expect-error No need to check
+      currentMount.innerHTML = "";
+    }
+
     const width = 400;
     const height = 400;
 
     // Scene setup
     const scene = new THREE.Scene();
-    // Make background transparent
     scene.background = null;
+    // @ts-expect-error No need to check
     sceneRef.current = scene;
 
     // Camera setup
     const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
     camera.position.set(5, 5, 5);
     camera.lookAt(0, 0, 0);
+    // @ts-expect-error No need to check
     cameraRef.current = camera;
 
     // Renderer setup
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
-      alpha: true, // Enable alpha channel for transparency
+      alpha: true,
     });
     renderer.setSize(width, height);
     renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setClearColor(0x000000, 0); // Transparent background
-    mountRef.current.appendChild(renderer.domElement);
+    renderer.setClearColor(0x000000, 0);
+    // @ts-expect-error No need to check
     rendererRef.current = renderer;
 
     // OrbitControls setup
     const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true; // Smooth camera movement
+    controls.enableDamping = true;
     controls.dampingFactor = 0.05;
-    controls.enableZoom = true; // Allow zoom
-    controls.enablePan = false; // Disable panning (optional)
-    controls.autoRotate = true; // Auto-rotate when not interacting
-    controls.autoRotateSpeed = 0.5; // Slow auto-rotation
-    controls.minDistance = 3; // Minimum zoom distance
-    controls.maxDistance = 15; // Maximum zoom distance
-
-    // Reset camera and controls to default position
-    controls.reset();
-
+    controls.enableZoom = false;
+    controls.enablePan = false;
+    controls.autoRotate = true;
+    controls.autoRotateSpeed = 0.5;
+    controls.minDistance = 3;
+    controls.maxDistance = 15;
+    // @ts-expect-error No need to check
     controlsRef.current = controls;
 
     // Create Rubik's cube structure (3x3x3 grid of smaller cubes)
@@ -101,68 +105,100 @@ export const Cube = () => {
     }
 
     scene.add(cubeGroup);
+    // @ts-expect-error No need to check
     cubeRef.current = cubeGroup;
 
-    // Animation loop
+    // @ts-expect-error No need to check
+    currentMount.appendChild(renderer.domElement);
+
     const animate = () => {
+      // @ts-expect-error No need to check
       animationRef.current = requestAnimationFrame(animate);
 
-      // Update controls (required for damping and auto-rotate)
       if (controlsRef.current) {
+        // @ts-expect-error No need to check
         controlsRef.current.update();
       }
 
-      renderer.render(scene, camera);
+      if (rendererRef.current && sceneRef.current && cameraRef.current) {
+        // @ts-expect-error No need to check
+        rendererRef.current.render(sceneRef.current, cameraRef.current);
+      }
     };
 
     animate();
 
-    // Cleanup
     return () => {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
+        animationRef.current = null;
       }
 
-      // Dispose of controls
       if (controlsRef.current) {
+        // @ts-expect-error No need to check
         controlsRef.current.dispose();
+        controlsRef.current = null;
       }
 
       if (
-        mountRef.current &&
-        renderer.domElement &&
-        mountRef.current.contains(renderer.domElement)
+        currentMount &&
+        rendererRef.current &&
+        // @ts-expect-error No need to check
+        rendererRef.current.domElement
       ) {
-        mountRef.current.removeChild(renderer.domElement);
+        // @ts-expect-error No need to check
+        if (currentMount.contains(rendererRef.current.domElement)) {
+          // @ts-expect-error No need to check
+          currentMount.removeChild(rendererRef.current.domElement);
+        }
       }
 
-      // Dispose of Three.js objects
       if (cubeRef.current) {
+        // @ts-expect-error No need to check
         cubeRef.current.traverse((child) => {
-          if (child.geometry) child.geometry.dispose();
+          if (child.geometry) {
+            child.geometry.dispose();
+          }
           if (child.material) {
             if (Array.isArray(child.material)) {
+              // @ts-expect-error No need to check
               child.material.forEach((material) => material.dispose());
             } else {
               child.material.dispose();
             }
           }
         });
+
+        if (sceneRef.current) {
+          // @ts-expect-error No need to check
+          sceneRef.current.remove(cubeRef.current);
+        }
+        cubeRef.current = null;
       }
 
-      if (renderer) {
-        renderer.dispose();
+      if (rendererRef.current) {
+        // @ts-expect-error No need to check
+        rendererRef.current.dispose();
+        rendererRef.current = null;
       }
+
+      if (sceneRef.current) {
+        // @ts-expect-error No need to check
+        sceneRef.current.clear();
+        sceneRef.current = null;
+      }
+
+      cameraRef.current = null;
     };
   }, [theme]);
 
   return (
-    <div className="hidden sm:inline-block -z-[1] -translate-y-38 -translate-x-10">
+    <div className="hidden sm:inline-block -z-[10] -translate-x-10">
       <div
         ref={mountRef}
         style={{
-          width: "100%",
-          height: "100px",
+          width: "400px",
+          height: "400px",
         }}
       />
     </div>

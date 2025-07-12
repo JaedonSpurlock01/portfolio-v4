@@ -6,6 +6,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+// @ts-expect-error No need to check type
 const importAll = (r): Promise<Blog[]> =>
   Promise.all(
     r.keys().map(async (fileName: string) => {

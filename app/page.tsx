@@ -1,10 +1,8 @@
 import WorkExperience from "@/components/work-experience";
 import { Intro } from "@/components/intro";
-// import Photos from "@/components/photos";
 import Projects from "@/components/projects";
 import StaggerContainer from "@/components/ui/stagger-container";
 import Education from "@/components/education";
-import Posts from "@/components/posts";
 import { Contact } from "@/components/contact";
 import Photos from "@/components/photos";
 

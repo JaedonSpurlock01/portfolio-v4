@@ -28,21 +28,6 @@ const StaggerContainer = ({
     },
   };
 
-  const childVariants = {
-    hidden: {
-      opacity: 0,
-      y: 20,
-    },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut",
-      },
-    },
-  };
-
   return (
     <motion.div
       className={className}
@@ -52,7 +37,24 @@ const StaggerContainer = ({
       viewport={{ once: true }}
     >
       {React.Children.map(children, (child) => (
-        <motion.div variants={childVariants}>{child}</motion.div>
+        <motion.div
+          variants={{
+            hidden: {
+              opacity: 0,
+              y: 20,
+            },
+            show: {
+              opacity: 1,
+              y: 0,
+              transition: {
+                duration: 0.5,
+                ease: "easeOut",
+              },
+            },
+          }}
+        >
+          {child}
+        </motion.div>
       ))}
     </motion.div>
   );

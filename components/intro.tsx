@@ -5,15 +5,14 @@ import { VideoText } from "./magicui/video-text";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import { Globe, Upload } from "lucide-react";
+import { Upload } from "lucide-react";
 import { Tech } from "./ui/tech";
 import { Cube } from "./ui/cube";
-import PulsatingDot from "./ui/pulsating-dot";
 
 export const Intro = () => {
   return (
     <section>
-      <div className="flex items-center gap-16 justify-between">
+      <div className="flex items-center gap-16 justify-between h-[200px]">
         <div className="flex flex-col gap-4 my-5">
           <div className="flex gap-4 z-10 items-center">
             <AvatarImage width={80} height={80} />
@@ -44,7 +43,7 @@ export const Intro = () => {
 
         <Cube />
       </div>
-      <p className="text-primary text-sm mt-8 leading-relaxed">
+      <p className="text-primary text-sm mt-8 leading-relaxed z-10">
         Im a <strong>full-stack software engineer</strong> from California,
         United States 🇺🇸. I have industry experience in software engineering and
         secured over $100k through student organizations. I have experience in

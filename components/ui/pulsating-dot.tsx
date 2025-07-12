@@ -19,7 +19,7 @@ const PulsatingDot = ({
       {/* Pulsing rings */}
       <div
         className={cn(
-          "absolute inset-0 rounded-full opacity-75 animate-ping-slow",
+          "absolute inset-0 rounded-full opacity-75 animate-ping",
           outerDotClassName
         )}
       />

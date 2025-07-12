@@ -4,7 +4,6 @@ import React, { useEffect, useRef } from "react";
 import Map, { Marker, MapRef } from "react-map-gl";
 import { useTheme } from "next-themes";
 import PulsatingDot from "./ui/pulsating-dot";
-// import Clock from "./ui/clock";
 
 export const LocationMap = () => {
   const { theme } = useTheme();
@@ -37,10 +36,10 @@ export const LocationMap = () => {
         ref={mapRef as React.LegacyRef<MapRef> | undefined}
         mapStyle={
           theme === "dark"
-            ? "mapbox://styles/mapbox/satellite-v9"
+            ? "mapbox://styles/mapbox/dark-v11"
             : "mapbox://styles/mapbox/light-v11"
         }
-        style={{ width: "100%", height: 150 }}
+        style={{ width: "100%", height: 200 }}
         scrollZoom={false}
         doubleClickZoom={false}
         mapboxAccessToken="pk.eyJ1IjoiamFlZG9uMDEiLCJhIjoiY20zdXY4em95MG12bTJtb2VuNDE2NnE3YiJ9.INFgoseS-jxCVH6BjEM8Mw"
@@ -57,9 +56,6 @@ export const LocationMap = () => {
           />
         </Marker>
       </Map>
-
-      {/* CLOCK
-      <Clock className="absolute top-4 right-4 bg-primary-foreground hover:bg-primary-foreground text-secondary" /> */}
     </div>
   );
 };

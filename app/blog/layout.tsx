@@ -11,7 +11,8 @@ export default async function Layout({
 }: {
   children: React.ReactNode;
 }) {
-  const slug = headers().get("x-next-blog-slug") as string;
+  const header = await headers();
+  const slug = header.get("x-next-blog-slug") as string;
   const blog = await getBlogBySlug(slug);
 
   if (!blog) {

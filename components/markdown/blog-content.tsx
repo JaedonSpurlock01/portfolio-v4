@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import BlogInfo from "@/components/markdown/blog-info";
 import { Blog } from "@/types/blog";
+import StaggerContainer from "../ui/stagger-container";
 
 export default function BlogContent({
   blog,
@@ -34,8 +35,8 @@ export default function BlogContent({
           </div>
         )}
         <BlogInfo blog={blog} />
-        <div className="prose dark:prose-invert prose-code:before:hidden prose-code:after:hidden prose-a:no-underline prose-p:text-sm prose-headings:text-lg prose-p:text-secondary max-w-none">
-          {children}
+        <div className="prose dark:prose-invert prose-code:before:hidden prose-code:after:hidden prose-a:no-underline prose-p:text-sm prose-headings:text-lg max-w-none">
+          <StaggerContainer>{children}</StaggerContainer>
         </div>
       </article>
     </>
